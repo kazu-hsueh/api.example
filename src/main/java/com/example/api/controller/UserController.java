@@ -2,6 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.service.UserService;
 import com.example.api.domain.request.UserReq;
+import com.example.persistence.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,10 @@ public class UserController {
 
 
     @GetMapping(path ="/{id}")
-    public void getUser(@PathVariable(name = "id") Integer id ){
+    @ResponseBody
+    public User getUser(@PathVariable(name = "id") Long id ){
         log.debug("id={}",id);
-        userService.findOneById(id);
+        return userService.findOneById(id).get();
     }
 
     @PostMapping
@@ -39,7 +41,7 @@ public class UserController {
     }
 
     @DeleteMapping(path ={"/{id}"})
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") Long id) {
         userService.delete(id);
     }
     @GetMapping
