@@ -1,7 +1,6 @@
 package com.example.api.controller;
 
 import com.example.api.service.UserService;
-import com.example.api.domain.request.UserReq;
 import com.example.persistence.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +28,13 @@ public class UserController {
     }
 
     @PostMapping
-    public void create(@Validated @RequestBody UserReq user ){
+    public void create(@Validated @RequestBody User user ){
         log.debug("user={}",user);
         userService.create(user);
     }
 
     @PutMapping
-    public void update(@RequestBody UserReq user ){
+    public void update(@RequestBody User user ){
         log.debug("user={}",user);
         userService.update(user);
     }
@@ -44,7 +43,8 @@ public class UserController {
     public void delete(@PathVariable("id") Long id) {
         userService.delete(id);
     }
-    @GetMapping
+
+    @GetMapping(path = "/list")
     public List findAll(){
         return userService.findAll();
     }
